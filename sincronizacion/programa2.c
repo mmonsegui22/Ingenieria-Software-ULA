@@ -1,9 +1,9 @@
 
-/* Universidad de Los Andes
- * Sincronizacion de procesos
- * Asignatura: Sistemas Operativos
- * Autor: Alvaro Araujo
- * Fecha: 20/04/2018
+/* universidad de Los andes
+ * sincronización de procesos
+ * asignatura: sistemas operativos
+ * autor: alvaro araujo
+ * fecha: 20/04/2018
  */
 
 #include <stdio.h>
@@ -32,19 +32,19 @@ int main()
   int sem;
 
   system("clear");
-  printf("\n\t--> Proceso %d \n\n",getpid());
+  printf("\n\t--> proceso %d \n\n",getpid());
   srand(getpid());
   key_t id_shmem = ftok(ROUTE, ID);
   void *pto_shmem;
   shmem_data *pto_inf;
-  int i = 0, shmem, pos, repeticion;
+  int i = 0, shmem, pos, repetición;
 
   if ((sem  = semget(SEM_ID, 1, 0644)) < 0) {
     perror("\tsemget");
     exit(EXIT_FAILURE);
   }
 
-  /* Busqueda del segmento de memoria compartida */
+  /* búsqueda del segmento de memoria compartida */
   if((shmem = shmget(id_shmem, sizeof(shmem_data), 0666)) < 0)
   {
 		perror("\tshmget");
@@ -69,17 +69,17 @@ int main()
 		  exit(EXIT_FAILURE);
 	  }
 
-    printf("\t\tMonitor sin espacio!!!\n\n");
+    printf("\t\tmonitor sin espacio!!!\n\n");
     exit(EXIT_SUCCESS);
   }
 
   llamadaSemaforo(sem, 0, -1);
 
-  repeticion = rand()%(100-10+1)+10;
-  for(i=0; i<repeticion; i++)
+  repetición = rand()%(100-10+1)+10;
+  for(i=0; i<repetición; i++)
   {
     pto_inf->array_p[pos].numero++;
-    printf("\tNúmero: %d\n",i);
+    printf("\tnúmero: %d\n",i);
     usleep(500000);
   }
 

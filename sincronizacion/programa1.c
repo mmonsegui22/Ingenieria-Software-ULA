@@ -1,6 +1,6 @@
 
 /* universidad de Los andes
- * sincronización de procesos
+ * sincronizacion de procesos
  * asignatura: sistemas operativos
  * autor: alvaro araujo
  * fecha: 20/04/2018
@@ -31,7 +31,7 @@ int main() {
 
   int sem;
 
-  /* creación del semaforo controlador de procesos,
+  /* creacion del semaforo controlador de procesos,
    * solo se aceptaran 4 procesos a la vez en el monitor
    */
   if ((sem  = semget(SEM_ID, 1, IPC_CREAT | 0644)) < 0) {
@@ -39,24 +39,24 @@ int main() {
     return(-1);
   }
 
-  /** inicialización del semaforo **/
+  /** inicializacion del semaforo **/
   semctl(sem, 0, SETVAL, 4);
 
-  /** creación del segmento de memoria compartida **/
+  /** creacion del segmento de memoria compartida **/
   if((shmem = shmget(id_shmem, sizeof(shmem_data), IPC_CREAT | 0666)) < 0)
   {
 		perror("\tshmget");
 		exit(EXIT_FAILURE);
   }
 
-  /** vinculación al segmento **/
+  /** vinculacion al segmento **/
 	if ((pto_shmem = shmat(shmem, NULL, 0)) == (char *) -1)
 	{
 		perror("\tshmat");
 		exit(EXIT_FAILURE);
 	}
 
-  /** inicialización **/
+  /** inicializacion **/
   pto_inf = (shmem_data *) pto_shmem;
   shmem_init(pto_inf);
 
@@ -87,7 +87,7 @@ void show_mon(shmem_data *pto_inf)
   int i=0;
   system("clear");
   printf("\n\t_______________________  monitor de procesos %d _______________________\n\n",pto_inf->pid_mon);
-  printf("\t\t pid\tnúmero\ttermino\n");
+  printf("\t\t pid\tnumero\ttermino\n");
   printf("\t\t-------------------------\n");
   for(i; i<10; i++)
   {

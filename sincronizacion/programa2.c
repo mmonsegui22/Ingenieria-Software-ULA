@@ -1,6 +1,6 @@
 
 /* universidad de Los andes
- * sincronización de procesos
+ * sincronizacion de procesos
  * asignatura: sistemas operativos
  * autor: alvaro araujo
  * fecha: 20/04/2018
@@ -37,21 +37,21 @@ int main()
   key_t id_shmem = ftok(ROUTE, ID);
   void *pto_shmem;
   shmem_data *pto_inf;
-  int i = 0, shmem, pos, repetición;
+  int i = 0, shmem, pos, repeticion;
 
   if ((sem  = semget(SEM_ID, 1, 0644)) < 0) {
     perror("\tsemget");
     exit(EXIT_FAILURE);
   }
 
-  /* búsqueda del segmento de memoria compartida */
+  /* busqueda del segmento de memoria compartida */
   if((shmem = shmget(id_shmem, sizeof(shmem_data), 0666)) < 0)
   {
 		perror("\tshmget");
 		exit(EXIT_FAILURE);
 	}
 
-  /* Vinculación al segmento */
+  /* Vinculacion al segmento */
 	if((pto_shmem = shmat(shmem, NULL, 0)) == (char *) -1)
 	{
 		perror("\tshmat");
@@ -75,11 +75,11 @@ int main()
 
   llamadaSemaforo(sem, 0, -1);
 
-  repetición = rand()%(100-10+1)+10;
-  for(i=0; i<repetición; i++)
+  repeticion = rand()%(100-10+1)+10;
+  for(i=0; i<repeticion; i++)
   {
     pto_inf->array_p[pos].numero++;
-    printf("\tnúmero: %d\n",i);
+    printf("\tnumero: %d\n",i);
     usleep(500000);
   }
 
